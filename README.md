@@ -18,6 +18,18 @@ See instructions. Delete this line and place instructions to download, configure
 Go to Requirements.py
 
 //place instructions of requirments here
+1. pip install -r requirements.txt
+2. python run.py
+3. On local host go to "http://127.0.0.1:5000" to see development server.
+
+Copy of requirments.txt
+    flask
+    pymongo
+    python-dotenv
+    flask-login
+    werkzeug
+
+
 
 ## Task boards
 
