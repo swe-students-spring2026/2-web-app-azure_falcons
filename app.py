@@ -6,7 +6,7 @@ Mood Journal Flask Application
 
 import os
 import calendar
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import pymongo
 from dotenv import load_dotenv
@@ -179,8 +179,29 @@ def create_app():
     
     @app.route('/entries/create', methods=['POST'])
     def create_entry():
-        """Create a new entry"""
-        flash('Entry created successfully!', 'success')
+        try:
+            mood_value = request.form.get('mood_value', type=int)
+            entry_text = request.form.get('entry_text')
+            date_str = request.form.get('entry_date')
+            user_id = session['user'] # replace with user_id = current_user.id when we use flask-login
+
+            if date_str:
+                entry_date = datetime.strptime(date_str, '%Y-%m-%d').replace(tzinfo=timezone.utc)
+            else:
+                entry_date = datetime.now(timezone.utc)
+
+            doc = {
+                "user_id": user_id,
+                "mood_value": mood_value,
+                "entry_text": entry_text,
+                "date": entry_date,
+                "created_at": datetime.now(timezone.utc)
+            }
+            db.mood_entries.insert_one(doc)
+            
+        except Exception as e:
+            app.logger.exception("Failed to create mood entry for user %s", user_id)
+
         return redirect(url_for('home'))
     
     @app.route('/entries/<entry_id>')
