@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}Stats - Mood Journal{% endblock %}
+{% block page_title %}Analytics{% endblock %}
+
+{% block content %}
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="summary-card">
+            <div class="value">{{ total_entries }}</div>
+            <div class="label">Total Entries</div>
+        </div>
+        <div class="summary-card">
+            <div class="value">{{ entries_this_month }}</div>
+            <div class="label">This Month</div>
+        </div>
+        <div class="summary-card">
+            <div class="value">{{ '%.1f'|format(average_mood) if average_mood else 'N/A' }}</div>
+            <div class="label">Avg Mood</div>
+        </div>
+        <div class="summary-card">
+            <div class="value">{{ current_streak }}</div>
+            <div class="label">Day Streak</div>
+        </div>
+    </div>
+
+    <!-- Mood Distribution Chart -->
+    <div class="chart-container">
+        <h3>Mood Distribution</h3>
+        <div class="bar-chart">
+            {% for mood_val in range(5, 0, -1) %}
+                {% set count = mood_counts.get(mood_val, 0) %}
+                {% set percentage = (count / total_entries * 100) if total_entries > 0 else 0 %}
+                <div class="chart-row">
+                    <div class="chart-label">
+                        {% if mood_val == 5 %}Great
+                        {% elif mood_val == 4 %}Good
+                        {% elif mood_val == 3 %}Neutral
+                        {% elif mood_val == 2 %}Bad
+                        {% else %}V. Bad
+                        {% endif %}
+                    </div>
+                    <div class="chart-bar-wrapper">
+                        <div class="chart-bar mood-{{ mood_val }}" style="width: {{ percentage }}%;"></div>
+                    </div>
+                    <div class="chart-value">{{ count }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}Search - Mood Journal{% endblock %}
+{% block page_title %}Search{% endblock %}
+
+{% block content %}
+    <!-- Search Controls -->
+    <div class="search-controls">
+        <form method="GET" action="{{ url_for('search_entries') }}">
+            <div class="search-input-wrapper">
+                <input type="text" 
+                       name="q" 
+                       class="search-input" 
+                       placeholder="Search your entries..."
+                       value="{{ query if query else '' }}">
+            </div>
+            
+            <!-- Filter Chips -->
+            <div class="filter-chips">
+                <a href="{{ url_for('search_entries', q=query) }}" 
+                   class="filter-chip {% if not mood_filter %}active{% endif %}">
+                    All
+                </a>
+                {% for m in range(5, 0, -1) %}
+                    <a href="{{ url_for('search_entries', q=query, mood=m) }}" 
+                       class="filter-chip {% if mood_filter == m %}active{% endif %}">
+                        Mood: {{ m }}
+                    </a>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+
+    <!-- Search Results -->
+    <div class="search-results">
+        {% if results %}
+            {% for entry in results %}
+                <a href="{{ url_for('view_entry', entry_id=entry._id) }}" class="result-card">
+                    <div class="result-mood-indicator mood-{{ entry.mood_value }}">
+                        {{ entry.mood_value }}
+                    </div>
+                    <div class="result-content">
+                        <div class="result-date">
+                            {{ entry.date.strftime('%B %d, %Y') }}
+                        </div>
+                        <div class="result-snippet">
+                            {{ entry.entry_text[:50] ~ '...' if entry.entry_text and entry.entry_text|length > 50 else entry.entry_text or 'No text' }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <div class="no-results">
+                {% if query or mood_filter %}
+                    <p>No entries found matching your search.</p>
+                {% else %}
+                    <p>Start typing to search your entries.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
