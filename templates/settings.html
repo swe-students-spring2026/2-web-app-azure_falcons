@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}Settings - Mood Journal{% endblock %}
+{% block page_title %}Settings{% endblock %}
+
+{% block content %}
+    <div class="settings-list">
+        <!-- Account Section -->
+        <div class="settings-section">
+            <h3 class="settings-section-title">Account</h3>
+            <div class="settings-card">
+                <div class="settings-item">
+                    <span class="settings-label">Username</span>
+                    <span class="settings-value">{{ username }}</span>
+                </div>
+                <div class="settings-item">
+                    <a href="{{ url_for('logout') }}" class="settings-link danger">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Section -->
+        <div class="settings-section">
+            <h3 class="settings-section-title">Data</h3>
+            <div class="settings-card">
+                <div class="settings-item">
+                    <a href="{{ url_for('export_entries') }}" class="settings-link">Export All Entries</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="settings-section">
+            <h3 class="settings-section-title">About</h3>
+            <div class="settings-card">
+                <div class="settings-item">
+                    <span class="settings-label">Version</span>
+                    <span class="settings-value">1.0.0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

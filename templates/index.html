@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home - Mood Journal{% endblock %}
+{% block page_title %}Home{% endblock %}
+
+{% block content %}
+    <!-- Call to Action Block -->
+    <a href="{{ url_for('add_entry') }}" class="cta-block">
+        <h2>How are you feeling today?</h2>
+        <p>Tap here to log your mood</p>
+    </a>
+
+    <!-- Calendar Container -->
+    <div class="calendar-container">
+        <!-- Calendar Header with Month/Year and Navigation -->
+        <div class="calendar-header">
+            <button class="calendar-nav-btn" onclick="window.location.href='{{ url_for('home', year=prev_year, month=prev_month) }}'">
+                &lt;
+            </button>
+            <h3>{{ month_name }} {{ year }}</h3>
+            <button class="calendar-nav-btn" onclick="window.location.href='{{ url_for('home', year=next_year, month=next_month) }}'">
+                &gt;
+            </button>
+        </div>
+
+        <!-- Weekday Headers -->
+        <div class="calendar-weekdays">
+            <div class="weekday">Sun</div>
+            <div class="weekday">Mon</div>
+            <div class="weekday">Tue</div>
+            <div class="weekday">Wed</div>
+            <div class="weekday">Thu</div>
+            <div class="weekday">Fri</div>
+            <div class="weekday">Sat</div>
+        </div>
+
+        <!-- Calendar Grid -->
+        <!-- 
+            Expects 'calendar_matrix' from backend: a 2D array (list of weeks)
+            Each cell is a dict: { 'day': int or None, 'mood': int or None, 'entry_id': str or None, 'is_today': bool }
+            Example: [
+                [{'day': None}, {'day': None}, {'day': 1, 'mood': 3, 'entry_id': '...'}, ...],
+                [{'day': 2, 'mood': None}, {'day': 3, 'mood': 5, 'entry_id': '...'}, ...],
+                ...
+            ]
+        -->
+        <div class="calendar-grid">
+            {% for week in calendar_matrix %}
+                {% for cell in week %}
+                    {% if cell.day is none %}
+                        <div class="calendar-cell empty"></div>
+                    {% elif cell.mood %}
+                        <a href="{{ url_for('view_entry', entry_id=cell.entry_id) }}" 
+                           class="calendar-cell mood-{{ cell.mood }}{% if cell.is_today %} today{% endif %}">
+                            {{ cell.day }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('add_entry', date=cell.date_str) }}" 
+                           class="calendar-cell no-entry{% if cell.is_today %} today{% endif %}">
+                            {{ cell.day }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

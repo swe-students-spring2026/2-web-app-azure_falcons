@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mood Journal{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Top App Bar -->
+    <header class="top-app-bar">
+        {% block back_button %}{% endblock %}
+        <h1 class="page-title">{% block page_title %}Home{% endblock %}</h1>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Fixed Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="{{ url_for('home') }}" class="nav-item {% if active_page == 'home' %}active{% endif %}">
+            <span class="nav-label">Home</span>
+        </a>
+        <a href="{{ url_for('add_entry') }}" class="nav-item {% if active_page == 'add' %}active{% endif %}">
+            <span class="nav-label">Add</span>
+        </a>
+        <a href="{{ url_for('search_entries') }}" class="nav-item {% if active_page == 'search' %}active{% endif %}">
+            <span class="nav-label">Search</span>
+        </a>
+        <a href="{{ url_for('stats') }}" class="nav-item {% if active_page == 'stats' %}active{% endif %}">
+            <span class="nav-label">Stats</span>
+        </a>
+        <a href="{{ url_for('settings') }}" class="nav-item {% if active_page == 'settings' %}active{% endif %}">
+            <span class="nav-label">Settings</span>
+        </a>
+    </nav>
+</body>
+</html>
