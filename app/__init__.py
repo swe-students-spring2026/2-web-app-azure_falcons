@@ -10,6 +10,8 @@ def create_app():
     app.mongo_db = client[app.config["MONGO_DB_NAME"]]
 
     from app.routes.page_routes import page_bp
+    from app.routes.entry_routes import entry_bp
     app.register_blueprint(page_bp)
+    app.register_blueprint(entry_bp)
 
     return app
