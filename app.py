@@ -10,6 +10,7 @@ from datetime import datetime, date, timezone
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import pymongo
 from dotenv import load_dotenv
+from bson.objectid import ObjectId
 
 load_dotenv()
 
@@ -82,7 +83,14 @@ def create_app():
         today = date.today()
 
         # query args 
-        user_id = session['user'] # replace with user_id = current_user.id when we use flask-login
+
+
+
+        user_id = session.get('user', 'test_user') # replace with user_id = current_user.id when we use flask-login 
+
+
+
+
         start = datetime(year, month, 1, tzinfo=timezone.utc)
         end = datetime(year, month, calendar.monthrange(year, month)[1], 23, 59, 59, tzinfo=timezone.utc)
 
@@ -227,7 +235,14 @@ def create_app():
     @app.route('/entries/<entry_id>')
     def view_entry(entry_id):
         """View a single entry"""
-        entry = MOCK_ENTRIES_DB.get(entry_id)
+        entries_collection = db["entries"]
+        try:
+            entry = entries_collection.find_one(
+                {"_id": ObjectId(entry_id)}
+                )
+        except:
+            entry = None
+
         if not entry:
             flash('Entry not found', 'error')
             return redirect(url_for('home'))
@@ -262,19 +277,21 @@ def create_app():
         query = request.args.get('q', '')
         mood_filter = request.args.get('mood', type=int)
         
-        results = []
-        
-        if query or mood_filter:
-            for entry_id, entry in MOCK_ENTRIES_DB.items():
-                if mood_filter and entry['mood_value'] != mood_filter:
-                    continue
+        entries_collection = db["entries"]
+
+        filter_query = {}
+
+        if mood_filter:
+            filter_query["mood_value"] = mood_filter
+
+        if query:
+            filter_query["entry_text"] = {"$regex": query, "$options": "i"}
                 
-                if query and query.lower() not in entry['entry_text'].lower():
-                    continue
-                
-                results.append(entry)
-            
-            results.sort(key=lambda x: x['date'], reverse=True)
+        results = list(
+            entries_collection
+            .find(filter_query)
+            .sort("date", -1)
+        )
         
         return render_template('search.html', 
                              results=results,
