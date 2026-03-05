@@ -49,17 +49,6 @@ def create_app():
         user_data = db.users.find_one({"_id": ObjectId(user_id)})
         return User(user_data) if user_data else None
     
-    # =============================================
-    # MOCK DATA (Retained as requested)
-    # =============================================
-    MOCK_ENTRIES_DB = {
-        'mock1': {
-            '_id': 'mock1',
-            'date': datetime(2026, 2, 15, 10, 30),
-            'mood_value': 5,
-            'entry_text': 'Had an amazing day!'
-        },
-    }
     
     def build_calendar_matrix(year, month):
         """Build a calendar matrix"""
@@ -173,6 +162,19 @@ def create_app():
     def add_entry():
         date_str = request.args.get('date')
         selected_date = datetime.strptime(date_str, '%Y-%m-%d') if date_str else datetime.now()
+        
+        # Check if an entry already exists for this date
+        start_of_day = selected_date.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=timezone.utc)
+        end_of_day = selected_date.replace(hour=23, minute=59, second=59, microsecond=999999, tzinfo=timezone.utc)
+        
+        existing_entry = db.mood_entries.find_one({
+            "user_id": current_user.id,
+            "date": {"$gte": start_of_day, "$lte": end_of_day}
+        })
+        
+        if existing_entry:
+            return redirect(url_for('edit_entry', entry_id=str(existing_entry['_id'])))
+        
         return render_template('entry_form.html', entry=None, selected_date=selected_date, active_page='add')
     
     @app.route('/entries/create', methods=['POST'])
@@ -218,8 +220,22 @@ def create_app():
     @app.route('/entries/<entry_id>/edit', methods=['POST'])
     @login_required
     def update_entry(entry_id):
-        # Implementation for updating DB entry...
-        flash('Entry updated successfully!', 'success')
+        try:
+            mood_value = request.form.get('mood_value', type=int)
+            entry_text = request.form.get('entry_text')
+            
+            db.mood_entries.update_one(
+                {"_id": ObjectId(entry_id), "user_id": current_user.id},
+                {"$set": {
+                    "mood_value": mood_value,
+                    "entry_text": entry_text,
+                    "updated_at": datetime.now(timezone.utc)
+                }}
+            )
+            flash('Entry updated successfully!', 'success')
+        except Exception as e:
+            app.logger.exception("Failed to update mood entry.")
+            flash('Failed to update entry', 'error')
         return redirect(url_for('view_entry', entry_id=entry_id))
     
     @app.route('/entries/<entry_id>/delete', methods=['POST'])
@@ -270,6 +286,7 @@ def create_app():
             login_user(user_obj)
             return redirect(url_for('home'))
         
+        flash('Invalid username or password', 'error')
         return redirect(url_for('login'))
     
     @app.route('/auth/register')
@@ -284,12 +301,15 @@ def create_app():
         confirm_password = request.form.get('confirm_password')
         
         if not username or not password:
+            flash('Username and password are required', 'error')
             return redirect(url_for('register'))
         
         if password != confirm_password:
+            flash('Passwords do not match', 'error')
             return redirect(url_for('register'))
 
         if db.users.find_one({"username": username}):
+            flash('Username already exists', 'error')
             return redirect(url_for('register'))
         
         # hash password

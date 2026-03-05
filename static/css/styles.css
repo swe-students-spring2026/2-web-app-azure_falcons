@@ -1,14 +1,7 @@
-@font-face {
-    font-family: 'Brittany Signature';
-    src: url('/assets/BrittanySignature.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
 
 @font-face {
     font-family: 'Casual Sunday';
-    src: url('/assets/Casual%20Sunday.otf') format('opentype');
+    src: url('/assets/fonts/Casual\ Sunday.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -16,7 +9,7 @@
 
 @font-face {
     font-family: 'Creato Display';
-    src: url('/assets/CreatoDisplay-Bold.otf') format('opentype');
+    src: url('/assets/fonts/CreatoDisplay-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -24,7 +17,7 @@
 
 @font-face {
     font-family: 'Creato Display';
-    src: url('/assets/CreatoDisplay-Regular.otf') format('opentype');
+    src: url('/assets/fonts/CreatoDisplay-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -157,13 +150,19 @@ body {
     background: transparent;
     transition: all 0.15s ease;
     border-radius: 2px;
+    position: relative;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 1;
 }
 
 .nav-item.active {
     background-color: var(--blue);
-    color: var(--white);
     border: 2px solid var(--blue);
-    transform: rotate(-1deg);
 }
 
 .nav-item:not(.active):active {
@@ -171,11 +170,7 @@ body {
 }
 
 .nav-label {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+    display: none;
 }
 
 /* Main Content Area*/
@@ -496,7 +491,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
-    box-shadow: var(--shadow-brutal);
     transition: all 0.1s ease;
 }
 
@@ -581,7 +575,6 @@ body {
     text-align: center;
     text-decoration: none;
     border: var(--border-thick) solid var(--blue);
-    box-shadow: var(--shadow-brutal);
     transition: all 0.1s ease;
 }
 
@@ -600,9 +593,7 @@ body {
     color: var(--blue);
 }
 
-/* =============================================
-   Search Page - Neo-Brutalism
-   ============================================= */
+/* Search Page */
 .search-controls {
     position: sticky;
     top: var(--header-height);
@@ -750,9 +741,7 @@ body {
     font-size: 1.15rem;
 }
 
-/* =============================================
-   Analytics / Stats Dashboard - Neo-Brutalism
-   ============================================= */
+/* Analytics / Stats Dashboard */
 .summary-cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -871,6 +860,16 @@ body {
     width: 100%;
     max-width: 360px;
     padding: 1rem;
+}
+
+.auth-title {
+    font-family: var(--font-handwriting);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--blue);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
 }
 
 .auth-form {
@@ -1043,7 +1042,6 @@ body {
     padding: 0.4rem 0.75rem;
     border: 2px solid var(--blue);
     background: var(--cream);
-    box-shadow: var(--shadow-brutal-sm);
     transition: all 0.1s ease;
 }
 

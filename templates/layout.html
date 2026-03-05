@@ -21,18 +21,23 @@
     <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
         <a href="{{ url_for('home') }}" class="nav-item {% if active_page == 'home' %}active{% endif %}">
+            <img src="{{ url_for('serve_assets', filename='icons/home' ~ ('-active' if active_page == 'home' else '') ~ '.png') }}" alt="Home" class="nav-icon">
             <span class="nav-label">Home</span>
         </a>
         <a href="{{ url_for('add_entry') }}" class="nav-item {% if active_page == 'add' %}active{% endif %}">
+            <img src="{{ url_for('serve_assets', filename='icons/add' ~ ('-active' if active_page == 'add' else '') ~ '.png') }}" alt="Add" class="nav-icon">
             <span class="nav-label">Add</span>
         </a>
         <a href="{{ url_for('search_entries') }}" class="nav-item {% if active_page == 'search' %}active{% endif %}">
+            <img src="{{ url_for('serve_assets', filename='icons/search' ~ ('-active' if active_page == 'search' else '') ~ '.png') }}" alt="Search" class="nav-icon">
             <span class="nav-label">Search</span>
         </a>
         <a href="{{ url_for('stats') }}" class="nav-item {% if active_page == 'stats' %}active{% endif %}">
+            <img src="{{ url_for('serve_assets', filename='icons/stats' ~ ('-active' if active_page == 'stats' else '') ~ '.png') }}" alt="Stats" class="nav-icon">
             <span class="nav-label">Stats</span>
         </a>
         <a href="{{ url_for('settings') }}" class="nav-item {% if active_page == 'settings' %}active{% endif %}">
+            <img src="{{ url_for('serve_assets', filename='icons/settings' ~ ('-active' if active_page == 'settings' else '') ~ '.png') }}" alt="Settings" class="nav-icon">
             <span class="nav-label">Settings</span>
         </a>
     </nav>

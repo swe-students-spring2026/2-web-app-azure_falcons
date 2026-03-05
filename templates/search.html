@@ -21,12 +21,26 @@
                    class="filter-chip {% if not mood_filter %}active{% endif %}">
                     All
                 </a>
-                {% for m in range(5, 0, -1) %}
-                    <a href="{{ url_for('search_entries', q=query, mood=m) }}" 
-                       class="filter-chip {% if mood_filter == m %}active{% endif %}">
-                        Mood: {{ m }}
-                    </a>
-                {% endfor %}
+                <a href="{{ url_for('search_entries', q=query, mood=5) }}" 
+                   class="filter-chip {% if mood_filter == 5 %}active{% endif %}">
+                    Great
+                </a>
+                <a href="{{ url_for('search_entries', q=query, mood=4) }}" 
+                   class="filter-chip {% if mood_filter == 4 %}active{% endif %}">
+                    Good
+                </a>
+                <a href="{{ url_for('search_entries', q=query, mood=3) }}" 
+                   class="filter-chip {% if mood_filter == 3 %}active{% endif %}">
+                    Neutral
+                </a>
+                <a href="{{ url_for('search_entries', q=query, mood=2) }}" 
+                   class="filter-chip {% if mood_filter == 2 %}active{% endif %}">
+                    Bad
+                </a>
+                <a href="{{ url_for('search_entries', q=query, mood=1) }}" 
+                   class="filter-chip {% if mood_filter == 1 %}active{% endif %}">
+                    Very Bad
+                </a>
             </div>
         </form>
     </div>

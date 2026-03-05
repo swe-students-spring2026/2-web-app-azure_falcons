@@ -24,7 +24,7 @@
     <!-- Detail Section -->
     <div class="entry-detail-section">
         <div class="entry-date">
-            {{ entry.date.strftime('%A, %B %d, %Y at %I:%M %p') }}
+            {{ entry.date.strftime('%A, %B %d, %Y') }}
         </div>
         <div class="entry-text">
             {{ entry.entry_text if entry.entry_text else 'No journal entry for this day.' }}
