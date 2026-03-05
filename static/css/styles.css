@@ -35,7 +35,6 @@
     --text-secondary: var(--blue);
     --border-color: var(--blue);
 
-    /* Reversed: 5 is darkest, 1 is lightest */
     --mood-1: rgba(42, 66, 170, 0.15);
     --mood-2: rgba(42, 66, 170, 0.3);
     --mood-3: rgba(42, 66, 170, 0.5);
