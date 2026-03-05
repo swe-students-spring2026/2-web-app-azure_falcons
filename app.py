@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Mood Journal Flask Application
+Azure Mood Flask Application
 """
 
 import os
@@ -33,9 +33,7 @@ def create_app():
     except Exception as e:
         print(' * MongoDB connection error:', e)
     
-    # =============================================
     # MOCK DATA FOR DEVELOPMENT
-    # =============================================
     MOCK_ENTRIES = {
         '2026-02-15': {'mood': 5, 'entry_id': 'mock1'},
         '2026-02-18': {'mood': 3, 'entry_id': 'mock2'},
@@ -134,9 +132,7 @@ def create_app():
             matrix.append(week_data)
         return matrix
     
-    # =============================================
     # PAGE ROUTES
-    # =============================================
     
     @app.route('/')
     def home():
@@ -209,9 +205,8 @@ def create_app():
         username = session.get('user', 'Guest')
         return render_template('settings.html', username=username, active_page='settings')
     
-    # =============================================
     # ENTRY ROUTES
-    # =============================================
+
     
     @app.route('/entries/add')
     def add_entry():
@@ -331,9 +326,8 @@ def create_app():
         flash('Export functionality coming soon!', 'success')
         return redirect(url_for('settings'))
     
-    # =============================================
     # AUTH ROUTES
-    # =============================================
+
     
     @app.route('/auth/login')
     def login():
