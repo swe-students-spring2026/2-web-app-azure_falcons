@@ -286,7 +286,7 @@ def create_app():
             login_user(user_obj)
             return redirect(url_for('home'))
         
-        flash('Invalid username or password', 'error')
+        flash('Invalid username or password', 'auth')
         return redirect(url_for('login'))
     
     @app.route('/auth/register')
@@ -301,15 +301,15 @@ def create_app():
         confirm_password = request.form.get('confirm_password')
         
         if not username or not password:
-            flash('Username and password are required', 'error')
+            flash('Username and password are required', 'auth')
             return redirect(url_for('register'))
         
         if password != confirm_password:
-            flash('Passwords do not match', 'error')
+            flash('Passwords do not match', 'auth')
             return redirect(url_for('register'))
 
         if db.users.find_one({"username": username}):
-            flash('Username already exists', 'error')
+            flash('Username already exists', 'auth')
             return redirect(url_for('register'))
         
         # hash password

@@ -6,12 +6,14 @@
     <form method="POST" action="{{ url_for('login') }}" class="auth-form">
         <h1>Welcome back!</h1>
         
-        <!-- Flash Messages -->
+        <!-- Flash Messages (auth only) -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
-                        <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% if category == 'auth' %}
+                            <div class="flash-message error">{{ message }}</div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endif %}
