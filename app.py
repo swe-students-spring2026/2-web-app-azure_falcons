@@ -278,22 +278,49 @@ def create_app():
     @app.route('/entries/<entry_id>/edit')
     def edit_entry(entry_id):
         """Show form to edit an entry"""
-        entry = MOCK_ENTRIES_DB.get(entry_id)
+        try:
+            entry = db.mood_entries.find_one({"_id": ObjectId(entry_id)})
+        except:
+            entry = None
+
         if not entry:
             flash('Entry not found', 'error')
             return redirect(url_for('home'))
-        
+
         return render_template('entry_form.html', entry=entry)
     
     @app.route('/entries/<entry_id>/edit', methods=['POST'])
     def update_entry(entry_id):
         """Update an entry"""
+        try:
+            mood_value = request.form.get('mood_value', type=int)
+            entry_text = request.form.get('entry_text', '')
+            result = db.mood_entries.update_one(
+                {"_id": ObjectId(entry_id)},
+                {"$set": {"mood_value": mood_value, "entry_text": entry_text}}
+            )
+            if result.matched_count == 0:
+                flash('Entry not found', 'error')
+                return redirect(url_for('home'))
+        except Exception as e:
+            app.logger.exception("Failed to update mood entry. Error:", e)
+            return redirect(url_for('home'))
+
         flash('Entry updated successfully!', 'success')
         return redirect(url_for('view_entry', entry_id=entry_id))
     
     @app.route('/entries/<entry_id>/delete', methods=['POST'])
     def delete_entry(entry_id):
         """Delete an entry"""
+        try:
+            result = db.mood_entries.delete_one({"_id": ObjectId(entry_id)})
+            if result.deleted_count == 0:
+                flash('Entry not found', 'error')
+                return redirect(url_for('home'))
+        except Exception as e:
+            app.logger.exception("Failed to delete mood entry. Error:", e)
+            return redirect(url_for('home'))
+
         flash('Entry deleted successfully!', 'success')
         return redirect(url_for('home'))
     
