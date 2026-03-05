@@ -1,32 +1,57 @@
-# Web Application Exercise: Azure Mood App
+# Azure Mood App
 
+A web application for tracking and visualizing your mood through an intuitive calendar interface.
 
-## Product vision statement
+## Product Vision
 
 To empower users to map their inner lives through an elegant, intuitive calendar interface.
 
+## Setup & Run
 
-## User stories
+1. Clone the repository
+   ```bash
+   git clone https://github.com/swe-students-spring2026/2-web-app-azure_falcons.git
+   cd 2-web-app-azure_falcons
+   ```
 
-Access the set of user stories at [this link](https://github.com/swe-students-spring2026/2-web-app-azure_falcons/issues).
+2. Create and activate virtual environment
+   ```bash
+   python -m venv .venv
+   # Windows
+   .venv\Scripts\activate
+   # macOS/Linux
+   source .venv/bin/activate
+   ```
 
+3. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## Steps necessary to run the software
+4. Configure environment variables
+   
+   Copy `.env.example` to `.env` and fill in your MongoDB credentials:
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Required variables:
+   ```
+   MONGO_URI
+   MONGO_DB
+   ```
 
-Go to Requirements.py
+5. Run the application
+   ```bash
+   python run.py
+   ```
 
-1. pip install -r requirements.txt
-2. python run.py
-3. On local host go to "http://127.0.0.1:5000" to see development server.
+6. Open in browser: http://127.0.0.1:5000
 
-Copy of requirments.txt
-    flask
-    pymongo
-    python-dotenv
-    flask-login
-    werkzeug
+## User Stories
 
+See our [Product Backlog](https://github.com/orgs/swe-students-spring2026/projects/39/views/1).
 
-## Task boards
+## Task Boards
 
-Access the task boards on the projects page at [this link](https://github.com/orgs/swe-students-spring2026/projects).
+See our [Projects Page](https://github.com/orgs/swe-students-spring2026/projects).
