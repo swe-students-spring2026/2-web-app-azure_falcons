@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
-{% block title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %} - Mood Journal{% endblock %}
-{% block page_title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %}{% endblock %}
+{% block title %}{% if entry %}Edit Shade{% else %}Add Shade{% endif %} - Azure Mood{% endblock %}
+{% block page_title %}{% if entry %}Edit Shade{% else %}Add Shade{% endif %}{% endblock %}
 
 {% block back_button %}
 <a href="{{ url_for('home') }}" class="back-button">&lt; Back</a>
@@ -24,7 +24,7 @@
 
         <!-- Mood Selector -->
         <div class="mood-selector">
-            <h3>Select your mood</h3>
+            <h3>How does today feel?</h3>
             <div class="mood-options">
                 {% for mood_val in range(1, 6) %}
                     <input type="radio" 
@@ -50,7 +50,7 @@
 
         <!-- Submit Button -->
         <button type="submit" class="submit-button">
-            {% if entry %}Save Changes{% else %}Save Entry{% endif %}
+            {% if entry %}Save Changes{% else %}Save Shade{% endif %}
         </button>
     </form>
 {% endblock %}

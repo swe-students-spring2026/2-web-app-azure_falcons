@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}Settings - Mood Journal{% endblock %}
+{% block title %}Settings - Azure Mood{% endblock %}
 {% block page_title %}Settings{% endblock %}
 
 {% block content %}
@@ -19,23 +19,13 @@
             </div>
         </div>
 
-        <!-- Data Section -->
-        <div class="settings-section">
-            <h3 class="settings-section-title">Data</h3>
-            <div class="settings-card">
-                <div class="settings-item">
-                    <a href="{{ url_for('export_entries') }}" class="settings-link">Export All Entries</a>
-                </div>
-            </div>
-        </div>
-
         <!-- About Section -->
         <div class="settings-section">
             <h3 class="settings-section-title">About</h3>
             <div class="settings-card">
                 <div class="settings-item">
-                    <span class="settings-label">Version</span>
-                    <span class="settings-value">1.0.0</span>
+                    <span class="settings-label">Azure Mood</span>
+                    <span class="settings-value">To empower users to map their inner lives through an elegant, intuitive calendar interface.</span>
                 </div>
             </div>
         </div>
