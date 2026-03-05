@@ -143,8 +143,8 @@ def create_app():
             average_mood = total / entries_this_month if entries_this_month > 0 else None
             
             return render_template('dashboard.html', total_entries=total_entries,
-                                entries_this_month=entries_this_month, average_mood=average_mood,
-                                current_streak=5, mood_counts=mood_counts, active_page='stats')
+                                entries_this_month=entries_this_month, average_mood=average_mood, 
+                                mood_counts=mood_counts, active_page='stats')
         except Exception as e:
             app.logger.exception("Failed to retrieve stats.")
             return redirect(url_for('home'))

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
-{% block title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %} - Azure Mood{% endblock %}
-{% block page_title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %}{% endblock %}
+{% block title %}{% if entry %}Edit Shade{% else %}Add Shade{% endif %} - Azure Mood{% endblock %}
+{% block page_title %}{% if entry %}Edit Shade{% else %}Add Shade{% endif %}{% endblock %}
 
 {% block back_button %}
 <a href="{{ url_for('home') }}" class="back-button">&lt; Back</a>
@@ -50,7 +50,7 @@
 
         <!-- Submit Button -->
         <button type="submit" class="submit-button">
-            {% if entry %}Save Changes{% else %}Save Entry{% endif %}
+            {% if entry %}Save Changes{% else %}Save Shade{% endif %}
         </button>
     </form>
 {% endblock %}
