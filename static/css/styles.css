@@ -332,15 +332,15 @@ body {
     cursor: default;
 }
 
-/* Mood cells with blue opacity variations */
+/* Mood cells with blue opacity variations - 5 is darkest, 1 is lightest */
 .calendar-cell.mood-1 { 
-    background-color: var(--blue); 
-    color: var(--white); 
+    background-color: rgba(42, 66, 170, 0.15); 
+    color: var(--blue); 
     border-color: var(--blue);
 }
 .calendar-cell.mood-2 { 
-    background-color: rgba(42, 66, 170, 0.75); 
-    color: var(--white); 
+    background-color: rgba(42, 66, 170, 0.3); 
+    color: var(--blue); 
     border-color: var(--blue);
 }
 .calendar-cell.mood-3 { 
@@ -349,13 +349,13 @@ body {
     border-color: var(--blue);
 }
 .calendar-cell.mood-4 { 
-    background-color: rgba(42, 66, 170, 0.3); 
-    color: var(--blue); 
+    background-color: rgba(42, 66, 170, 0.75); 
+    color: var(--white); 
     border-color: var(--blue);
 }
 .calendar-cell.mood-5 { 
-    background-color: rgba(42, 66, 170, 0.15); 
-    color: var(--blue); 
+    background-color: var(--blue); 
+    color: var(--white); 
     border-color: var(--blue);
 }
 
@@ -426,24 +426,24 @@ body {
 }
 
 .mood-option[data-mood="1"] { 
-    background-color: var(--blue); 
-    color: var(--white); 
+    background-color: rgba(42, 66, 170, 0.15); 
+    color: var(--blue); 
 }
 .mood-option[data-mood="2"] { 
-    background-color: rgba(42, 66, 170, 0.75); 
-    color: var(--white); 
+    background-color: rgba(42, 66, 170, 0.3); 
+    color: var(--blue); 
 }
 .mood-option[data-mood="3"] { 
     background-color: rgba(42, 66, 170, 0.5); 
     color: var(--white); 
 }
 .mood-option[data-mood="4"] { 
-    background-color: rgba(42, 66, 170, 0.3); 
-    color: var(--blue); 
+    background-color: rgba(42, 66, 170, 0.75); 
+    color: var(--white); 
 }
 .mood-option[data-mood="5"] { 
-    background-color: rgba(42, 66, 170, 0.15); 
-    color: var(--blue); 
+    background-color: var(--blue); 
+    color: var(--white); 
 }
 
 .mood-radio {
@@ -515,11 +515,11 @@ body {
     transform: rotate(-0.5deg);
 }
 
-.entry-hero.mood-1 { background-color: var(--blue); color: var(--white); }
-.entry-hero.mood-2 { background-color: rgba(42, 66, 170, 0.75); color: var(--white); }
+.entry-hero.mood-1 { background-color: rgba(42, 66, 170, 0.15); color: var(--blue); }
+.entry-hero.mood-2 { background-color: rgba(42, 66, 170, 0.3); color: var(--blue); }
 .entry-hero.mood-3 { background-color: rgba(42, 66, 170, 0.5); color: var(--white); }
-.entry-hero.mood-4 { background-color: rgba(42, 66, 170, 0.3); color: var(--blue); }
-.entry-hero.mood-5 { background-color: rgba(42, 66, 170, 0.15); color: var(--blue); }
+.entry-hero.mood-4 { background-color: rgba(42, 66, 170, 0.75); color: var(--white); }
+.entry-hero.mood-5 { background-color: var(--blue); color: var(--white); }
 
 .entry-hero .mood-value {
     font-family: var(--font-handwriting);
@@ -712,11 +712,11 @@ body {
     border: 2px solid var(--blue);
 }
 
-.result-mood-indicator.mood-1 { background-color: var(--blue); color: var(--white); }
-.result-mood-indicator.mood-2 { background-color: rgba(42, 66, 170, 0.75); color: var(--white); }
+.result-mood-indicator.mood-1 { background-color: rgba(42, 66, 170, 0.15); color: var(--blue); }
+.result-mood-indicator.mood-2 { background-color: rgba(42, 66, 170, 0.3); color: var(--blue); }
 .result-mood-indicator.mood-3 { background-color: rgba(42, 66, 170, 0.5); color: var(--white); }
-.result-mood-indicator.mood-4 { background-color: rgba(42, 66, 170, 0.3); color: var(--blue); }
-.result-mood-indicator.mood-5 { background-color: rgba(42, 66, 170, 0.15); color: var(--blue); }
+.result-mood-indicator.mood-4 { background-color: rgba(42, 66, 170, 0.75); color: var(--white); }
+.result-mood-indicator.mood-5 { background-color: var(--blue); color: var(--white); }
 
 .result-content {
     flex: 1;
@@ -841,11 +841,11 @@ body {
     transition: width 0.3s ease;
 }
 
-.chart-bar.mood-1 { background-color: var(--blue); }
-.chart-bar.mood-2 { background-color: rgba(42, 66, 170, 0.75); }
+.chart-bar.mood-1 { background-color: rgba(42, 66, 170, 0.15); }
+.chart-bar.mood-2 { background-color: rgba(42, 66, 170, 0.3); }
 .chart-bar.mood-3 { background-color: rgba(42, 66, 170, 0.5); }
-.chart-bar.mood-4 { background-color: rgba(42, 66, 170, 0.3); }
-.chart-bar.mood-5 { background-color: rgba(42, 66, 170, 0.15); }
+.chart-bar.mood-4 { background-color: rgba(42, 66, 170, 0.75); }
+.chart-bar.mood-5 { background-color: var(--blue); }
 
 .chart-value {
     width: 30px;
