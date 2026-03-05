@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %} - Mood Journal{% endblock %}
+{% block title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %} - Azure Mood{% endblock %}
 {% block page_title %}{% if entry %}Edit Entry{% else %}Add Entry{% endif %}{% endblock %}
 
 {% block back_button %}
@@ -24,7 +24,7 @@
 
         <!-- Mood Selector -->
         <div class="mood-selector">
-            <h3>Select your mood</h3>
+            <h3>How does today feel?</h3>
             <div class="mood-options">
                 {% for mood_val in range(1, 6) %}
                     <input type="radio" 

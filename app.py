@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 """
-Mood Journal Flask Application
+Azure Mood Flask Application
 """
 
 import os
 import calendar
 from datetime import datetime, date, timezone
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 import pymongo
 from dotenv import load_dotenv
 from bson.objectid import ObjectId
@@ -109,9 +109,14 @@ def create_app():
             matrix.append(week_data)
         return matrix
     
-    # =============================================
+    # ASSETS ROUTE (for local fonts)
+    
+    @app.route('/assets/<path:filename>')
+    def serve_assets(filename):
+        """Serve files from the assets folder"""
+        return send_from_directory('assets', filename)
+    
     # PAGE ROUTES
-    # =============================================
     
     @app.route('/')
     @login_required
@@ -160,9 +165,8 @@ def create_app():
     def settings():
         return render_template('settings.html', username=current_user.username, active_page='settings')
     
-    # =============================================
     # ENTRY ROUTES
-    # =============================================
+
     
     @app.route('/entries/add')
     @login_required
@@ -245,9 +249,8 @@ def create_app():
         flash('Export functionality coming soon!', 'success')
         return redirect(url_for('settings'))
     
-    # =============================================
     # AUTH ROUTES
-    # =============================================
+
     
     @app.route('/auth/login')
     def login():
